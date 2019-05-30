@@ -1,0 +1,69 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class jumpingBlock : MonoBehaviour
+{
+    public Transform platform;
+    public Rigidbody rb;
+    public float amount;
+    public float distance;
+    public Camera cam,bgcam;
+    public bool firstJump;
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            firstJump = true;
+        }
+        if (distance < 2 && firstJump)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb.velocity = Vector3.up * amount;
+               
+            }
+        }
+        distance = Vector3.Distance(this.transform.position, platform.position);
+        if(distance<1)
+        {
+            amount = 0.5f+amount;
+            
+        }
+        CameControl();
+        RelodScene();
+        
+    }
+    void CameControl()
+    {
+        if (distance > 8)
+        {
+            cam.orthographicSize = distance;
+            bgcam.orthographicSize = distance;
+        }
+        else
+        {
+            cam.orthographicSize = 8;
+            bgcam.orthographicSize = distance;
+        }
+    }
+    void RelodScene()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            Application.LoadLevel(0);
+        }
+    }
+    void GoingUpward()
+    {
+        
+    }
+}
