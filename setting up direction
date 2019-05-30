@@ -1,0 +1,32 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LookAngleOFcharacter : MonoBehaviour
+{
+    public Rigidbody2D rb;
+    public Animator anim;
+    public float velocityamount;
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        anim = gameObject.GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        velocityamount = (float)rb.velocity.y;
+        if (rb.velocity.y>1)
+        {
+            anim.SetFloat("speed", 0f);
+            velocityamount = rb.velocity.y;
+            Debug.Log("Going Up with speed"+velocityamount);
+        }
+        else
+        {
+            anim.SetFloat("speed", 1f);
+            Debug.Log("Coming Down with speed" + velocityamount);
+        }
+    }
+}
